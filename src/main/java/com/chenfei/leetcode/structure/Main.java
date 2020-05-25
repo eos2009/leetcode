@@ -8,8 +8,11 @@ package com.chenfei.leetcode.structure;
  */
 public class Main {
     public static void main(String[] args) {
-        LruCache lruCache = new LruCache(2);
+        testLruCache();
+    }
 
+    private static void testLruCache(){
+        LruCache lruCache = new LruCache(2);
         lruCache.put(1,1);
         lruCache.put(2,2);
         System.out.println(lruCache.get(1));
@@ -17,7 +20,5 @@ public class Main {
         lruCache.put(3,3);
         System.out.println(lruCache.get(1));
         System.out.println(lruCache.get(2));
-
-
     }
 }
