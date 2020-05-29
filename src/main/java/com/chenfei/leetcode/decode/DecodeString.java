@@ -20,38 +20,32 @@ public class DecodeString {
     private static String decodeString(String sourceStr) {
         Stack<String> stack = new Stack<String>();
         for ( i = 0;i < sourceStr.length(); i++) {
-            String s = String.valueOf(sourceStr.charAt(i));
-            if(isNumber(s)){
+            char c = sourceStr.charAt(i);
+            if(Character.isDigit(c)){
                 stack.push(getNumber(sourceStr));
                 continue;
             }
-            if ("]".equals(s)) {
-                convert(stack);
+            if(Character.isLetter(c) || c == '['){
+                stack.push(String.valueOf(c));
                 continue;
             }
-            stack.push(s);
+            convert(stack);
         }
         return result(stack);
     }
 
     private static void convert(Stack<String> stack) {
         StringBuffer sb = new StringBuffer();
-        boolean numFlag = false;
         while (true) {
             String s = stack.pop();
             if("[".equals(s)){
-                numFlag = true;
-                continue;
-            }
-            if (numFlag){
-                for (int i = 0; i < Integer.parseInt(s); i++) {
-                    stack.push(sb.toString());
-                }
                 break;
             }
-            if (!"[".equals(s)) {
-                sb.insert(0, s);
-            }
+            sb.insert(0, s);
+        }
+        String num = stack.pop();
+        for (int i = 0; i < Integer.parseInt(num); i++) {
+            stack.push(sb.toString());
         }
     }
 
@@ -65,20 +59,11 @@ public class DecodeString {
 
     private static String getNumber(String sourceStr){
         StringBuffer sb = new StringBuffer();
-        while (isNumber(String.valueOf(sourceStr.charAt(i)))){
+        while (Character.isDigit(sourceStr.charAt(i))){
             sb.append(String.valueOf(sourceStr.charAt(i)));
             i++;
         }
         i--;
         return sb.toString();
-    }
-
-    private static boolean isNumber(String s){
-        try {
-            Integer.parseInt(s);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
     }
 }
