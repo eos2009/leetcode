@@ -15,10 +15,6 @@ public class RobSum {
     }
 
     private static int rob(int[] arr){
-        return getMax(arr,arr.length-1);
-    }
-
-    private static int getMax(int[] arr){
         if(arr == null || arr.length <= 0){
             return 0;
         }
